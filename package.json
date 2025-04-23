@@ -1,0 +1,12 @@
+{
+  "name": "Express-P2P-Network",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/ptch05/Express-P2P-Network",
+  "author": "Peiman Timaji <peimantimaji@yahoo.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^22.14.1",
+    "typescript": "^5.8.3"
+  }
+}
