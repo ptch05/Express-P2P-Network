@@ -1,4 +1,4 @@
-# Distributed Seed-Server Messaging Proxy
+# Express P2P Network
 
 A lightweight TypeScript project for routing direct messages between clients via a pool of “seed” servers. Clients register with a random seed server, which tracks their IP and username. When one client wants to send a message to another, the seed servers coordinate to look up the destination and deliver the message directly.
 
