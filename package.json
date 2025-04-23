@@ -5,8 +5,17 @@
   "repository": "https://github.com/ptch05/Express-P2P-Network",
   "author": "Peiman Timaji <peimantimaji@yahoo.com>",
   "license": "MIT",
+  "scripts": {
+    "dev": "nodemon -e ts index.ts"
+  },
   "devDependencies": {
+    "@types/express": "^5.0.1",
     "@types/node": "^22.14.1",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "nodemon": "^2.0.22",
+    "ts-node": "^10.9.1"
+  },
+  "dependencies": {
+    "express": "^5.0.1"
   }
 }
