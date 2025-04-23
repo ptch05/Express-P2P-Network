@@ -1,10 +1,14 @@
 import express from 'express';
 import { getRandomSeedServer } from './src/getRandomSeedServer';
+import { registerWithSeedServer } from './src/registerWithSeedServer';
+import { register } from './src/routes/register';
 
 const PORT = process.env.PORT ?? 3000;
 const app = express();
 
 app.use(express.json());
+
+app.post("/register", register);
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
@@ -12,8 +16,8 @@ app.listen(PORT, () => {
 
 
 async function initialize(){
-    const randomSeedServer = getRandomSeedServer();
-    console.log(randomSeedServer);
+    const randomSeedServerUri = getRandomSeedServer();
+    await registerWithSeedServer(randomSeedServerUri);
 }
 
 initialize();
