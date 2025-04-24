@@ -5,6 +5,8 @@ import { register } from './src/routes/register';
 import { lookup } from './src/routes/lookup';
 import { addNode } from './src/servers';
 import { seeds } from './seed';
+import { message } from './src/routes/message';
+import { send } from './src/routes/send';
 
 const PORT = process.env.PORT ?? 3000;
 const app = express();
@@ -19,6 +21,8 @@ app.get("/lookup", async (req, res, next) => {
         next(error);
     }
 });
+app.post("/send", send);
+app.post("/message", message);
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
