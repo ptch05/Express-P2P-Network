@@ -1,20 +1,38 @@
-import type { Request, Response } from 'express';
-import { getNodeByUser, getNodes } from '../servers';
-import { lookupUser } from '../lookupUser';
+import type { Request, Response } from "express";
+import { lookupUser } from "../lookupUser";
+import { addNode, getNodeByUser, getNodes } from "../servers";
+import { v4 as uuidv4 } from "uuid";
 
-export function lookup(req: Request, res: Response) {
-    const serverByUser = getNodeByUser(req.query.user as string);
-    const { user } = req.query as { user: string };
-    if (!serverByUser) {
-        for (let server of getNodes()){
-            try {
-                lookupUser(server.uri, user)
-            } catch (e) {
-                console.error(`Failed to lookup user ${req.query.user} on seed server: ${e}`);
-            }
-        }
-        res.status(404).send("User not found");
-    } else {
-        res.json(serverByUser);
+const seedIds = new Set();
+
+export async function lookup(req: Request, res: Response) {
+  const { user } = req.query as { user: string };
+  const requestId = req.get("x-request-id") || uuidv4();
+
+  if (seedIds.has(requestId)) {
+    return res.status(404).send("user not found");
+  }
+
+  seedIds.add(requestId);
+  const serverByUser = getNodeByUser(user);
+
+  if (!serverByUser) {
+    let foundUser;
+
+    for (let server of getNodes()) {
+      try {
+        foundUser = await lookupUser(user, server.uri, requestId);
+      } catch (err) {}
     }
+
+    if (foundUser) {
+      console.log(`cached ${foundUser.user}`);
+      addNode(foundUser);
+      return res.json(foundUser);
+    } else {
+      return res.status(404).send("user not found");
+    }
+  }
+
+  res.json(serverByUser);
 }

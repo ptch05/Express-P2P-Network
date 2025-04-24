@@ -12,7 +12,13 @@ const app = express();
 app.use(express.json());
 
 app.post("/register", register);
-app.get("/lookup", lookup);
+app.get("/lookup", async (req, res, next) => {
+    try {
+        await lookup(req, res);
+    } catch (error) {
+        next(error);
+    }
+});
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
