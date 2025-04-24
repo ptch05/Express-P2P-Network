@@ -2,10 +2,16 @@ import type { Request, Response } from "express";
 import { lookupUser } from "../lookupUser";
 import { addNode, getNodeByUser, getNodes } from "../servers";
 import { v4 as uuidv4 } from "uuid";
+import { appendEntryToJson } from "../appendEntryToJson";
+import path from "path";
 
 const seedIds = new Set();
 
 export async function lookup(req: Request, res: Response) {
+  appendEntryToJson(path.join(process.cwd(), "./trace.json"), {
+    user: process.env.USER_NAME,
+  });
+
   const { user } = req.query as { user: string };
   const requestId = req.get("x-request-id") || uuidv4();
 
