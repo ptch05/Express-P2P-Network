@@ -15,3 +15,7 @@ export function addNode(node: Node){
 export function getNodeByUser(user: string){
     return servers.find(server => server.user === user);
 }
+
+export function getNodes(){
+    return [...servers];
+}
