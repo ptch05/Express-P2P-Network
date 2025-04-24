@@ -5,7 +5,7 @@ export function registerWithSeedServer(uri: string){
         method: "POST",
         body: JSON.stringify({
             uri: `http:localhost:${process.env.PORT}`,
-            user: process.env.USERNAME,
+            user: process.env.USER_NAME,
         }),
         headers: {
             "Content-Type": "application/json",

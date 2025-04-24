@@ -11,3 +11,7 @@ export function addNode(node: Node){
     console.log(`${node.user} registered at uri of ${node.uri}`);
     servers.push(node);
 }
+
+export function getNodeByUser(user: string){
+    return servers.find(server => server.user === user);
+}
