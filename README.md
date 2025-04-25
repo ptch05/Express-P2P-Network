@@ -93,21 +93,10 @@ yarn install     # or npm install
 - **USER_NAME**: Unique identifier for this seed server/client.
 - **PORT**: HTTP port (default `3000`).
 
-Set environment variables before running:
-
-```bash
-export USER_NAME=seed1
-export PORT=3001
-```  
-
 ### Running
 
 ```bash
-# Via ts-node
-yarn ts-node seed.ts
-
-# Or build & run
-yarn build	node dist/seed.js
+USER_NAME=*insert username* PORT=*insert port* yarn dev
 ```
 
 ---
